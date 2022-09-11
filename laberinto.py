@@ -60,10 +60,10 @@ lab = [
 "X  X        X      X  X",
 "X  XXXX  X  XXXXXXXEX X",
 "X     X  X     X      X",
-"XXXX  X  X  XXXXX XXXXX",
+"X XX  X  X  XXXXX XXXXX",
 "X  X  X               X",
 "X  X   XXX  XXXXX  X  X",
-"X  X  X     X  X   X  X",
+"X  X  X     X      X  X",
 "X  X    XX XX  X  X  XX",
 "XXXXXXXXXXXXXXXXXXXXXXX",
 
@@ -72,20 +72,23 @@ lab = [
 
 #-------------------------------------------
 #creación de la ventana con turtle
-wn = turtle.Screen()
-wn.setup(600,600) 
-wn.bgcolor("Black")
-wn.title("Parcial 1-Laberinto Inteligencia Artificial.")
-wn.bgpic("files/maze_image1.gif")
-texto=turtle.Turtle()
-texto.hideturtle()
-texto.penup()
-texto.goto(-290,130)
-texto.color('white')
-style =('Courier', 20, 'italic', 'bold')
-texto.write('Laberinto de Inteligencia Artificial', font=style, move=True)
+def principal(wn):
+    wn.clear()
+    wn.setup(600,600)
+    wn.bgpic("files/maze_image1.gif")
+    texto=turtle.Turtle()
+    texto.hideturtle()
+    texto.penup()
+    texto.goto(-290,130)
+    texto.color('white')
+    style =('Courier', 20, 'italic', 'bold')
+    texto.write('Laberinto de Inteligencia Artificial', font=style, move=True)
 
+    makeButton(80,-150,-200,"Jugar")
+    makeButton(175,50,-200,"Hacerlo con IA")
 
+    turtle.onscreenclick(buttonsMainViewClick,1)
+    turtle.listen()
 
 #definición de botones con turtle
 def makeButton(tam,x,y,msg):
@@ -108,16 +111,41 @@ def makeButton(tam,x,y,msg):
     penButtons.goto(x+6,y+7)
     penButtons.write(msg, font=["Courier",15,"bold"])
 
-makeButton(80,-150,-200,"Jugar")
-makeButton(175,50,-200,"Hacerlo con IA")
 
 #Evento para los botones de la primera pantalla
 def buttonsMainViewClick(x,y):
+    #Botón para jugar
     if x> -150 and x< -70 and y> -200 and y< -170:
         wn.clear()
         wn.bgcolor("black")
         inicializar_laberinto(lab)
         inicializar_controles(start_x,start_y,end_x,end_y)
+        texto=turtle.Turtle()
+        texto.hideturtle()
+        texto.penup()
+        texto.goto(-290,260)
+        texto.color('white')
+        style =('Courier', 15 , 'italic', 'bold')
+        texto.write('Encuentra el camino: ', font=style, move=True)
+        texto.color("orange")
+        texto.shape('square')
+        texto.goto(-280, 220)
+        texto.stamp()
+        texto.color("red")
+        texto.goto(-280, 250)
+        texto.stamp()
+
+        texto.goto(-260,240)
+        texto.color('white')
+        style =('Courier', 15 , 'italic', 'bold')
+        texto.write(': Entrada. ', font=style, move=True)
+
+        texto.goto(-260,210)
+        texto.color('white')
+        style =('Courier', 15 , 'italic', 'bold')
+        texto.write(': Salida.', font=style, move=True)
+
+    #Resolver con IA
     if x> 40 and x< 190 and y> -200 and y< -170:
         wn.clear()
         wn.bgcolor("black")
@@ -126,38 +154,37 @@ def buttonsMainViewClick(x,y):
         
         turtle.onscreenclick(buttonsMazeClick,1)
         turtle.listen()
-
-turtle.onscreenclick(buttonsMainViewClick,1)
-turtle.listen()
-
+    
+        
 #Evento para los botones de la segunda pantalla
 def buttonsMazeClick(x,y):
-    if x> -50 and x< 60 and y> -210 and y< -120:
+    if x> -50 and x< 60 and y> -210 and y< -180:
         #------------------------------------------
         #Usando el algoritmo Breath first para encontrar la ruta mas corta.
 
         buscar(start_x,start_y)
         camino_mas_corto(end_x, end_y)
-        makeButton(110,-50,-210,"Salir")
-        
-        turtle.onscreenclick(exit)
+        makeButton(110,-50,-210,"Volver")
+        turtle.onscreenclick(volverI)
 
 #Función para salir del programa.
-def exit(x,y):
-    if x> -50 and x< 60 and y> -210 and y< -120:
-        sys.exit()
-    
+def volverI(x,y):
+    if x> -50 and x< 60 and y> -210 and y< -180:
+        principal(wn)
 
+def volver(x,y):
+    if x> -200 and x< -90 and y> -180 and y< -150:
+        principal(wn)
 
 
 def inicializar_laberinto(lab):
     global start_x, start_y, end_x, end_y
-
+    
     for y in range(len(lab)):
         for x in range(len(lab[y])):
             letra = lab[y][x]
             screen_x = -270 + (x * 24)
-            screen_y = 250 - (y * 24)
+            screen_y = 180 - (y * 24)
             if letra == "X":
                 maze.goto(screen_x, screen_y)
                 maze.stamp()
@@ -191,6 +218,9 @@ def up():
         wn.bgcolor("Black")
         wn.setup(500,500)
         wn.bgpic("files/di.gif")
+        makeButton(110,-200,-180,"Volver")
+        turtle.onscreenclick(volver)
+
 
 def left():
     x,y=(player.position()[0]-24),(player.position()[1])
@@ -204,7 +234,8 @@ def left():
         wn.bgcolor("Black")
         wn.setup(500,500)
         wn.bgpic("files/di.gif")
-
+        makeButton(110,-200,-180,"Volver")
+        turtle.onscreenclick(volver)
 
 
 def right():
@@ -218,6 +249,8 @@ def right():
         wn.clear()
         wn.setup(500,500)
         wn.bgpic("files/di.gif")
+        makeButton(110,-200,-180,"Volver")
+        turtle.onscreenclick(volver)
 
 
 def down():
@@ -231,6 +264,8 @@ def down():
         wn.clear()
         wn.setup(500,500)
         wn.bgpic("files/di.gif")
+        makeButton(110,-200,-180,"Volver")
+        turtle.onscreenclick(volver)
 
 #Keyboard Binds
 def inicializar_controles(x,y,e_x,e_y):
@@ -294,7 +329,7 @@ def buscar(x,y):
         wall_color.stamp()
 
 def camino_mas_corto(x, y):
-    wall_color.color("green")
+    wall_color.color('chartreuse')
     wall_color.goto(x, y)
     wall_color.stamp()
     while (x, y) != (start_x, start_y):
@@ -302,7 +337,14 @@ def camino_mas_corto(x, y):
         wall_color.stamp()
         x, y = solution[x, y]
 
+
+
+wn = turtle.Screen()
+wn.setup(600,600) 
+wn.bgcolor("Black")
+wn.title("Parcial 1-Laberinto Inteligencia Artificial.")
+
+principal(wn)
 #-------------------------------------------
 #ejecutando indefinidamente la app.
-
 turtle.done()
