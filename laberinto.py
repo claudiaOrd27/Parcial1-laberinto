@@ -6,7 +6,7 @@ import sys
 from collections import deque
 #-----------------------------------------------
 #declaración instancias de turtle para el laberinto.
-class maze(turtle.Turtle):
+class Maze(turtle.Turtle):
     def __init__(self):
         turtle.Turtle.__init__(self)
         self.shape("square")
@@ -34,7 +34,7 @@ class Player(turtle.Turtle):
         self.speed(0)
 #-------------------------------------------
 #Creación del laberinto.
-maze = maze()
+maze = Maze()
 wall_color= Color()
 player=Player()
 
@@ -44,8 +44,8 @@ visited = set()
 frontier = deque()
 solution = {}   
 fin_x,fin_y=0,0
-#s -> start
-#e -> exit
+#S -> start
+#E -> exit
 #X -> wall.
 lab = [
 "XXXXXXXXXXXXXXXXXXXXXXX",
@@ -78,12 +78,13 @@ wn.bgcolor("Black")
 wn.title("Parcial 1-Laberinto Inteligencia Artificial.")
 wn.bgpic("files/maze_image1.gif")
 texto=turtle.Turtle()
+texto.hideturtle()
 texto.penup()
 texto.goto(-290,130)
 texto.color('white')
 style =('Courier', 20, 'italic', 'bold')
 texto.write('Laberinto de Inteligencia Artificial', font=style, move=True)
-texto.hideturtle()
+
 
 
 #definición de botones con turtle
@@ -111,7 +112,7 @@ makeButton(80,-150,-200,"Jugar")
 makeButton(175,50,-200,"Hacerlo con IA")
 
 #Evento para los botones de la primera pantalla
-def buttonClick(x,y):
+def buttonsMainViewClick(x,y):
     if x> -150 and x< -70 and y> -200 and y< -170:
         wn.clear()
         wn.bgcolor("black")
@@ -123,11 +124,14 @@ def buttonClick(x,y):
         inicializar_laberinto(lab)
         makeButton(110,-50,-210,"Resolver")
         
-        turtle.onscreenclick(buttonMazeClick,1)
+        turtle.onscreenclick(buttonsMazeClick,1)
         turtle.listen()
 
+turtle.onscreenclick(buttonsMainViewClick,1)
+turtle.listen()
+
 #Evento para los botones de la segunda pantalla
-def buttonMazeClick(x,y):
+def buttonsMazeClick(x,y):
     if x> -50 and x< 60 and y> -210 and y< -120:
         #------------------------------------------
         #Usando el algoritmo Breath first para encontrar la ruta mas corta.
@@ -143,8 +147,7 @@ def exit(x,y):
     if x> -50 and x< 60 and y> -210 and y< -120:
         sys.exit()
     
-turtle.onscreenclick(buttonClick,1)
-turtle.listen()
+
 
 
 def inicializar_laberinto(lab):
