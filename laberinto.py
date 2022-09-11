@@ -150,7 +150,7 @@ def buttonsMainViewClick(x,y):
         wn.clear()
         wn.bgcolor("black")
         inicializar_laberinto(lab)
-        makeButton(110,-50,-210,"Resolver")
+        makeButton(110,-50,210,"Resolver")
         
         turtle.onscreenclick(buttonsMazeClick,1)
         turtle.listen()
@@ -158,18 +158,18 @@ def buttonsMainViewClick(x,y):
         
 #Evento para los botones de la segunda pantalla
 def buttonsMazeClick(x,y):
-    if x> -50 and x< 60 and y> -210 and y< -180:
+    if x> -50 and x< 60 and y> 210 and y< 240:
         #------------------------------------------
         #Usando el algoritmo Breath first para encontrar la ruta mas corta.
 
         buscar(start_x,start_y)
         camino_mas_corto(end_x, end_y)
-        makeButton(110,-50,-210,"Volver")
+        makeButton(110,-50,210,"Volver")
         turtle.onscreenclick(volverI)
 
 #Función para salir del programa.
 def volverI(x,y):
-    if x> -50 and x< 60 and y> -210 and y< -180:
+    if x> -50 and x< 60 and y> 210 and y< 240:
         principal(wn)
 
 def volver(x,y):
