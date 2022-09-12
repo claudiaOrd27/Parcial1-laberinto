@@ -54,32 +54,8 @@ visited = set()
 frontier = deque()
 solution = {}   
 fin_x,fin_y=0,0
-#S -> start
-#E -> exit
-#X -> wall.
-lab = [
-"XXXXXXXXXXXXXXXXXXXXXXX",
-"X               X     X",
-"XS XXXXX XXXX  XXXXX  X",
-"X          X          X",
-"X  XXX XXX  XXXXX  XXXX",
-"X  X     X     X  X   X",
-"X  X X X X  X  X  X   X",
-"X  X  X  X  X      X  X",
-"X  X    X  XXXXXX  X  X",
-"X  X        X      X  X",
-"X  XXXX  X  XXXXXXXEX X",
-"X     X  X     X      X",
-"X XX  X  X  XXXXX XXXXX",
-"X  X  X               X",
-"X  X   XXX  XXXXX  X  X",
-"X  X  X     X      X  X",
-"X  X    XX XX  X  X  XX",
-"XXXXXXXXXXXXXXXXXXXXXXX",
 
-
-]
-
+lab=[]
 contadorPlayer=0
 contadorIA=0
 nivel=1
@@ -135,6 +111,9 @@ def makeButton(tam,x,y,msg):
 def cambiarNivel():
         global lab
         if nivel==1:
+            #S -> start
+            #E -> exit
+            #X -> wall.
             lab = [
             "XXXXXXXXXXXXXXXXXXXXXXX",
             "X               X     X",
@@ -156,6 +135,9 @@ def cambiarNivel():
             "XXXXXXXXXXXXXXXXXXXXXXX",
             ]
         elif nivel == 2:
+            #S -> start
+            #E -> exit
+            #X -> wall.
             lab = [
             "XXXXXXXXXXXXXXXXXXXXXXX",
             "X          XXXXXXXXX  E",
@@ -177,6 +159,9 @@ def cambiarNivel():
             "XXXXXXXXXXXSXXXXXXXXXXX",
             ]
         else:
+            #S -> start
+            #E -> exit
+            #X -> wall.
             lab = [
             "XXXXXXXXXXXXXXXXXXXXXXX",
             "X  X            X     X",
@@ -206,7 +191,6 @@ def buttonsMainViewClick(x,y):
         wn.clear()
         wn.bgcolor("black")
         inicializar_laberinto(lab)
-        inicializar_controles(start_x,start_y,end_x,end_y)
         texto=turtle.Turtle()
         texto.hideturtle()
         texto.penup()
@@ -240,6 +224,8 @@ def buttonsMainViewClick(x,y):
         texto.color('white')
         style =('Courier', 15 , 'italic', 'bold')
         texto.write(': Jugador.', font=style, move=True)
+
+        inicializar_controles(start_x,start_y,end_x,end_y)
 
     #Resolver con IA
     if x> 40 and x< 190 and y> -200 and y< -170:
