@@ -103,6 +103,7 @@ def principal(ventana):
     texto_general.goto(-290,150)
     global nivel
     nivel=1
+    cambiarNivel()
     texto_general.write('Nivel actual: 1', font=('Courier', 12, 'italic', 'bold'), move=True)
     makeButton(200,-50, 150,"Cambiar nivel")
     
@@ -278,10 +279,9 @@ def buttonsMazeClick(x,y):
     if x> -50 and x< 60 and y> 210 and y< 240:
         #------------------------------------------
         #Usando el algoritmo Breath first search para encontrar la ruta mas corta.
-
+        turtle.onscreenclick(None)
         buscar(start_x,start_y)
         camino_mas_corto(end_x, end_y)
-        makeButton(110,-50,210,"Volver")
         texto= turtle.Turtle()
         texto.hideturtle()
         texto.penup()
@@ -290,6 +290,7 @@ def buttonsMazeClick(x,y):
         style =('Courier', 15 , 'italic', 'bold')
         msg='El camino mas corto es de '+ str(contadorIA) +" movimientos"
         texto.write(msg, font=style, move=True)
+        makeButton(110,-50,210,"Volver")
         turtle.onscreenclick(volverI)
 
 #Función para salir del programa.
@@ -350,7 +351,6 @@ def up():
         wn.bgcolor("Black")
         wn.setup(500,500)
         wn.bgpic("files/di.gif")
-        makeButton(110,-200,-180,"Volver")
         texto= turtle.Turtle()
         texto.hideturtle()
         texto.penup()
@@ -359,6 +359,7 @@ def up():
         style =('Courier', 15 , 'italic', 'bold')
         msg='Bien!, lo hiciste en '+ str(contadorPlayer) +" movimientos"
         texto.write(msg, font=style, move=True)
+        makeButton(110,-200,-180,"Volver")
         turtle.onscreenclick(volver)
 
 
@@ -376,7 +377,6 @@ def left():
         wn.bgcolor("Black")
         wn.setup(500,500)
         wn.bgpic("files/di.gif")
-        makeButton(110,-200,-180,"Volver")
         texto= turtle.Turtle()
         texto.hideturtle()
         texto.penup()
@@ -385,6 +385,7 @@ def left():
         style =('Courier', 15 , 'italic', 'bold')
         msg='Bien!, lo hiciste en '+ str(contadorPlayer) +" movimientos"
         texto.write(msg, font=style, move=True)
+        makeButton(110,-200,-180,"Volver")
         turtle.onscreenclick(volver)
 
 
@@ -402,7 +403,6 @@ def right():
         wn.bgcolor("Black")
         wn.setup(500,500)
         wn.bgpic("files/di.gif")
-        makeButton(110,-200,-180,"Volver")
         texto= turtle.Turtle()
         texto.hideturtle()
         texto.penup()
@@ -411,6 +411,7 @@ def right():
         style =('Courier', 15 , 'italic', 'bold')
         msg='Bien!, lo hiciste en '+ str(contadorPlayer) +" movimientos"
         texto.write(msg, font=style, move=True)
+        makeButton(110,-200,-180,"Volver")
         turtle.onscreenclick(volver)
 
 
@@ -428,7 +429,6 @@ def down():
         wn.bgcolor("Black")
         wn.setup(500,500)
         wn.bgpic("files/di.gif")
-        makeButton(110,-200,-180,"Volver")
         texto= turtle.Turtle()
         texto.hideturtle()
         texto.penup()
@@ -437,6 +437,7 @@ def down():
         style =('Courier', 15 , 'italic', 'bold')
         msg='Bien!, lo hiciste en '+ str(contadorPlayer) +" movimientos"
         texto.write(msg, font=style, move=True)
+        makeButton(110,-200,-180,"Volver")
         turtle.onscreenclick(volver)
 
 #Keyboard Binds
