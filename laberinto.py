@@ -480,7 +480,7 @@ def buscar(x,y):
         if(x, y + 24) in path and (x, y + 24) not in visited:
             cell = (x, y + 24)
             solution[cell] = x, y
-            wall_color.color("blue")
+            wall_color.color("purple")
             wall_color.goto(cell)
             wall_color.stamp()
             frontier.append(cell)
