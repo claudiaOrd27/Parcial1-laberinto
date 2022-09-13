@@ -48,10 +48,10 @@ wall_color= Color()
 player=Player()
 texto_general=Texto()
 
-path = []
-visited = set()
-frontier = deque()
-solution = {}   
+camino = []
+nodos_visitados = set()
+frontera = deque()
+solucion = {}   
 fin_x,fin_y=0,0
 
 lab=[]
@@ -290,10 +290,10 @@ def volver(x,y):
 
 def inicializar_laberinto(lab):
     global start_x, start_y, end_x, end_y
-    path.clear()
-    visited.clear()
-    frontier.clear()
-    solution.clear()
+    camino.clear()
+    nodos_visitados.clear()
+    frontera.clear()
+    solucion.clear()
     
     for y in range(len(lab)):
         for x in range(len(lab[y])):
@@ -305,7 +305,7 @@ def inicializar_laberinto(lab):
                 maze.stamp()
 
             if letra == " " or letra == "E":
-                path.append((screen_x, screen_y))
+                camino.append((screen_x, screen_y))
 
             if letra == "E":
                 wall_color.color("orange")
@@ -322,7 +322,7 @@ def inicializar_laberinto(lab):
 
 def up():
     x,y=(player.position()[0]),(player.position()[1]+24)
-    if (x,y) in path:
+    if (x,y) in camino:
         player.clear()
         player.goto(x,y)
         player.stamp()
@@ -348,7 +348,7 @@ def up():
 
 def left():
     x,y=(player.position()[0]-24),(player.position()[1])
-    if (x,y) in path:
+    if (x,y) in camino:
         player.clear()
         player.goto(x,y)
         player.stamp()
@@ -374,7 +374,7 @@ def left():
 
 def right():
     x,y=(player.position()[0]+24),(player.position()[1])
-    if (x,y) in path:
+    if (x,y) in camino:
         player.clear()
         player.goto(x,y)
         player.stamp()
@@ -400,7 +400,7 @@ def right():
 
 def down():
     x,y=(player.position()[0]),(player.position()[1]-24)
-    if (x,y) in path:
+    if (x,y) in camino:
         player.clear()
         player.goto(x,y)
         player.stamp()
@@ -439,49 +439,49 @@ def inicializar_controles(x,y,e_x,e_y):
     wn.onkeypress(down,"Down")
 
 def buscar(x,y):
-    frontier.append((x, y))
-    solution[x,y] = x,y
+    frontera.append((x, y))
+    solucion[x,y] = x,y
 
-    while len(frontier) > 0:
+    while len(frontera) > 0:
         time.sleep(0)
-        x, y = frontier.popleft()
+        x, y = frontera.popleft()
 
-        if(x - 24, y) in path and (x - 24, y) not in visited:
+        if(x - 24, y) in camino and (x - 24, y) not in nodos_visitados:
             cell = (x - 24, y)
-            solution[cell] = x, y
+            solucion[cell] = x, y
             wall_color.color("purple")
             wall_color.goto(cell)
             wall_color.stamp()
-            frontier.append(cell)
-            visited.add((x - 24, y))
+            frontera.append(cell)
+            nodos_visitados.add((x - 24, y))
 
-        if (x, y - 24) in path and (x, y - 24) not in visited:
+        if (x, y - 24) in camino and (x, y - 24) not in nodos_visitados:
             cell = (x, y - 24)
-            solution[cell] = x, y
+            solucion[cell] = x, y
             wall_color.color("purple")
             wall_color.goto(cell)
             wall_color.stamp()
-            frontier.append(cell)
-            visited.add((x, y - 24))
-            print(solution)
+            frontera.append(cell)
+            nodos_visitados.add((x, y - 24))
+            print(solucion)
 
-        if(x + 24, y) in path and (x + 24, y) not in visited:
+        if(x + 24, y) in camino and (x + 24, y) not in nodos_visitados:
             cell = (x + 24, y)
-            solution[cell] = x, y
+            solucion[cell] = x, y
             wall_color.color("purple")
             wall_color.goto(cell)
             wall_color.stamp()
-            frontier.append(cell)
-            visited.add((x +24, y))
+            frontera.append(cell)
+            nodos_visitados.add((x +24, y))
 
-        if(x, y + 24) in path and (x, y + 24) not in visited:
+        if(x, y + 24) in camino and (x, y + 24) not in nodos_visitados:
             cell = (x, y + 24)
-            solution[cell] = x, y
+            solucion[cell] = x, y
             wall_color.color("purple")
             wall_color.goto(cell)
             wall_color.stamp()
-            frontier.append(cell)
-            visited.add((x, y + 24))
+            frontera.append(cell)
+            nodos_visitados.add((x, y + 24))
         wall_color.color("blue")
         wall_color.goto(x,y)
         wall_color.stamp()
@@ -494,10 +494,10 @@ def camino_mas_corto(x, y):
     wall_color.stamp()
 
     while (x, y) != (start_x, start_y):
-        wall_color.goto(solution[x, y])
+        wall_color.goto(solucion[x, y])
         wall_color.stamp()
         contadorIA+=1
-        x, y = solution[x, y]
+        x, y = solucion[x, y]
 
 
 
