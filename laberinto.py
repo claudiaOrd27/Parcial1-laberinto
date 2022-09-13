@@ -48,7 +48,6 @@ wall_color= Color()
 player=Player()
 texto_general=Texto()
 
-walls = []
 path = []
 visited = set()
 frontier = deque()
@@ -291,7 +290,6 @@ def volver(x,y):
 
 def inicializar_laberinto(lab):
     global start_x, start_y, end_x, end_y
-    walls.clear()
     path.clear()
     visited.clear()
     frontier.clear()
@@ -305,7 +303,6 @@ def inicializar_laberinto(lab):
             if letra == "X":
                 maze.goto(screen_x, screen_y)
                 maze.stamp()
-                walls.append((screen_x, screen_y))
 
             if letra == " " or letra == "E":
                 path.append((screen_x, screen_y))
